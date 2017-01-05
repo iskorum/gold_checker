@@ -46,6 +46,12 @@ def main():
 	file.close()
 	# --------------------------------------------------
 
-	print("%s-%s" % (latest_amount, amount))
+	# ---------- get differenece ------------------------
+	diff = 0
+	try:
+		diff = float(amount.replace(",", ".")) - float(latest_amount.replace(",", "."))
+	except Exception as e: pass
+
+	print("%s-%s\n\n%s" % (amount, latest_amount, diff))
 
 main()
