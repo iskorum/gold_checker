@@ -1,0 +1,9 @@
+venv
+
+*.pyc
+._*
+.DS_Store
+*~
+*.log
+
+latest_amount.txt
