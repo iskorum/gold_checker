@@ -24,7 +24,7 @@ def main():
 	try:
 
 		file = open("latest_amount.txt", mode="r")
-		latest_amount = file.read()
+		latest_amount = file.read().strip()
 
 	except Exception as e: pass
 	# --------------------------------------------------
