@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+from datetime import datetime
 
 def main():
 
@@ -14,6 +14,7 @@ def main():
 	soup = BeautifulSoup(response.text, 'html.parser')
 	try:
 		amount = soup.find(text="A02 ALTIN 1000/1000").parent.parent.find_next_sibling().text.strip()
+		update_date = soup.find(attrs={"class":"odd first"}).find(attrs={"class":"firstTd"}).text.strip()
 	except Exception as e:
 		print("yok")
 		return False
@@ -41,8 +42,7 @@ def main():
 
 	# ------------ store new amount --------------------
 	file = open("amounts.txt", mode="a")
-	file.write(amount)
-	file.write("\n")
+	file.write("%s||%s||%s\n" % (amount, update_date, ("%s" % datetime.now()).split(".")[0]))
 	file.close()
 	# --------------------------------------------------
 
@@ -52,6 +52,6 @@ def main():
 		diff = float(amount.replace(",", ".")) - float(latest_amount.replace(",", "."))
 	except Exception as e: pass
 
-	print("%s-%s\n\n%s" % (amount, latest_amount, diff))
+	print("%s / %s\n%s" % (latest_amount, amount, diff))
 
 main()
