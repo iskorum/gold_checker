@@ -14,6 +14,7 @@ def main():
 	soup = BeautifulSoup(response.text, 'html.parser')
 	try:
 		amount = soup.find(text="A02 ALTIN 1000/1000").parent.parent.find_next_sibling().text.strip()
+		satin_alma = soup.find(text="A02 ALTIN 1000/1000").parent.parent.find_next_sibling().find_next_sibling().text.strip()
 		update_date = soup.find(attrs={"class":"odd first"}).find(attrs={"class":"firstTd"}).text.strip()
 	except Exception as e:
 		print("yok")
@@ -52,6 +53,6 @@ def main():
 		diff = float(amount.replace(",", ".")) - float(latest_amount.replace(",", "."))
 	except Exception as e: pass
 
-	print("%s / %s\n%s" % (latest_amount, amount, diff))
+	print("%s / %s - %s\n%s" % (latest_amount, amount, satin_alma, round(diff, 4)))
 
 main()
